@@ -1,0 +1,779 @@
+// Insertion 
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node
+{
+    int data;
+    struct Node *next;
+} node;
+
+node *head = NULL;
+
+void Print()
+{
+    node *p = head;
+    while (p != NULL)
+    {
+        printf("%d\t", p->data);
+        p = p->next;
+    }
+    printf("\n");
+}
+
+void Insert_at_beginning(int n)
+{
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode->data = n;
+    newnode->next = head;
+    head = newnode;
+    Print();
+}
+
+void Insert_at_end(int n)
+{
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode->data = n;
+    newnode->next = NULL;
+
+    if (head == NULL)
+    {
+        head = newnode;
+    }
+    else
+    {
+        node *p = head;
+        while (p->next != NULL)
+        {
+            p = p->next;
+        }
+        p->next = newnode;
+    }
+    Print();
+}
+
+void Insert_after_Nth_position(int n, int position)
+{
+    if (position <= 0)
+    {
+        printf("Invalid position to insert.\n");
+        return;
+    }
+
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode->data = n;
+    newnode->next = NULL;
+
+    node *p = head;
+    int i = 1;
+    while (i < position && p != NULL)
+    {
+        p = p->next;
+        i++;
+    }
+
+    if (p == NULL)
+    {
+        printf("Invalid position to insert.\n");
+        return;
+    }
+
+    newnode->next = p->next;
+    p->next = newnode;
+    Print();
+}
+
+int main()
+{
+    Insert_at_beginning(25);
+    Insert_at_beginning(35);
+    Insert_at_end(45);
+    Insert_at_end(10);
+    Insert_after_Nth_position(18, 2);
+    Insert_at_end(30);
+    Insert_after_Nth_position(1148, 1);
+    Insert_after_Nth_position(42, 0);
+    return 0;
+}
+
+
+
+
+-------------------------------------------------
+
+
+
+// deletion
+
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct Node
+{
+    int data;
+    struct Node *next;
+} node;
+node *head = NULL;
+void Print()
+{
+    node *p = head;
+    while (p != NULL)
+    {
+        printf("%d ", p->data);
+        p = p->next;
+    }
+    printf("\n");
+}
+void Delete_at_beginning()
+{
+    if (head == NULL)
+    {
+        printf("List is Empty.\n");
+        return;
+    }
+    node *temp = head;
+    head = head->next;
+    free(temp);
+    Print();
+}
+void Delete_at_end()
+{
+    if (head == NULL)
+    {
+        printf("List is Empty.\n");
+        return;
+    }
+    if (head->next == NULL)
+    {
+        free(head);
+        head = NULL;
+        Print();
+        return;
+    }
+    node *p = head;
+    while (p->next->next != NULL)
+    {
+        p = p->next;
+    }
+    free(p->next);
+    p->next = NULL;
+    Print();
+}
+void Delete_at_Nth_position(int position)
+{
+    if (position <= 0)
+    {
+        printf("Invalid position to delete.\n");
+        return;
+    }
+    node *p = head;
+    int i = 1;
+    while (i < position - 1 && p != NULL)
+    {
+        p = p->next;
+        i++;
+    }
+    if (p == NULL)
+    {
+        printf("Invalid position to delete.\n");
+        return;
+    }
+    node *temp = p->next;
+    p->next = p->next->next;
+    free(temp);
+    Print();
+}
+int main()
+{
+    node *a, *b, *c, *d, *e;
+    a = (node *)malloc(sizeof(node));
+    b = (node *)malloc(sizeof(node));
+    c = (node *)malloc(sizeof(node));
+    d = (node *)malloc(sizeof(node));
+    e = (node *)malloc(sizeof(node));
+    a->data = 10;
+    b->data = 20;
+    c->data = 30;
+    d->data = 40;
+    e->data = 50;
+    a->next = b;
+    b->next = c;
+    c->next = d;
+    d->next = e;
+    e->next = NULL;
+    head = a;
+    Print();
+    Delete_at_beginning();
+    Delete_at_Nth_position(3);
+    Delete_at_end();
+    Delete_at_beginning();
+    Delete_at_end();
+    Delete_at_end();
+    return 0;
+}
+
+
+
+
+-------------------------------------------------
+
+
+
+
+// Linked List: Insertion and Deletion
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node
+{
+    int data;
+    struct Node *next;
+} node;
+
+node *head = NULL;
+
+void Print()
+{
+    node *p = head;
+    while (p != NULL)
+    {
+        printf("%d\t", p->data);
+        p = p->next;
+    }
+    printf("\n");
+}
+
+void Insert_at_beginning(int n)
+{
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode->data = n;
+    newnode->next = head;
+    head = newnode;
+    Print();
+}
+
+void Insert_at_end(int n)
+{
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode->data = n;
+    newnode->next = NULL;
+    if (head == NULL)
+    {
+        head = newnode;
+    }
+    else
+    {
+        node *p = head;
+        while (p->next != NULL)
+        {
+            p = p->next;
+        }
+        p->next = newnode;
+    }
+    Print();
+}
+
+void Insert_after_Nth_position(int n, int position)
+{
+    if (position <= 0)
+    {
+        printf("Invalid position to insert.\n");
+        return;
+    }
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode->data = n;
+    newnode->next = NULL;
+    node *p = head;
+    int i = 1;
+    while (i < position && p != NULL)
+    {
+        p = p->next;
+        i++;
+    }
+    if (p == NULL)
+    {
+        printf("Invalid position to insert.\n");
+        return;
+    }
+    newnode->next = p->next;
+    p->next = newnode;
+    Print();
+}
+
+void Delete_at_beginning()
+{
+    if (head == NULL)
+    {
+        printf("List is Empty.\n");
+        return;
+    }
+    node *temp = head;
+    head = head->next;
+    free(temp);
+    Print();
+}
+
+void Delete_at_end()
+{
+    if (head == NULL)
+    {
+        printf("List is Empty.\n");
+        return;
+    }
+    if (head->next == NULL)
+    {
+        free(head);
+        head = NULL;
+        Print();
+        return;
+    }
+    node *p = head;
+    while (p->next->next != NULL)
+    {
+        p = p->next;
+    }
+    free(p->next);
+    p->next = NULL;
+    Print();
+}
+
+void Delete_at_Nth_position(int position)
+{
+    if (position <= 0)
+    {
+        printf("Invalid position to delete.\n");
+        return;
+    }
+    node *p = head;
+    int i = 1;
+    while (i < position - 1 && p != NULL)
+    {
+        p = p->next;
+        i++;
+    }
+    if (p == NULL)
+    {
+        printf("Invalid position to delete.\n");
+        return;
+    }
+    node *temp = p->next;
+    p->next = p->next->next;
+    free(temp);
+    Print();
+}
+
+int main()
+{
+    Insert_at_beginning(25);
+    Insert_at_beginning(35);
+    Insert_at_end(45);
+    Insert_at_end(10);
+    Insert_after_Nth_position(18, 2);
+    Insert_at_end(30);
+    Insert_after_Nth_position(1148, 1);
+    Insert_after_Nth_position(42, 0);
+    Delete_at_beginning();
+    Delete_at_beginning();
+    Delete_at_end();
+    return 0;
+}
+
+
+
+
+
+-------------------------------------------------
+
+
+
+
+
+
+/// left shift with linked list
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct node
+{
+    int data;
+    struct node *next;
+} node;
+
+
+int main()
+{
+    node *a,*b,*c,*d,*start,*p;
+    a = (node *)malloc(sizeof(node));
+    b = (node *)malloc(sizeof(node));
+    c = (node *)malloc(sizeof(node));
+    d = (node *)malloc(sizeof(node));
+
+    a->data = 1;
+    b->data = 1;
+    c->data = 1;
+    d->data = 1;
+
+    a->next = b;
+    b->next = c ;
+    c->next = d;
+    d->next = NULL;
+    start = a;
+
+    p = start;
+    while(p != NULL)
+    {
+        printf("%d ",p->data);
+        p = p->next;
+    }
+    printf("\n");
+
+    int n = 4;
+    while(n--)
+    {
+        p = start;
+        start = start->next;
+        free(p);
+
+        node *newNode = (node *)malloc(sizeof(node));
+        newNode->data = 0;
+        newNode->next = NULL;
+
+        p = start;
+        while(p->next != NULL)
+        {
+            p = p->next;
+        }
+        p->next = newNode;
+
+        p = start;
+
+        while(p != NULL)
+        {
+            printf("%d ",p->data);
+            p = p->next;
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+
+
+-------------------------------------------------
+
+
+
+/// right shift with linked list
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct node
+{
+    int data;
+    struct node *next;
+} node;
+
+int main()
+{
+    node *a,*b,*c,*d,*start,*p;
+    a = (node *)malloc(sizeof(node));
+    b = (node *)malloc(sizeof(node));
+    c = (node *)malloc(sizeof(node));
+    d = (node *)malloc(sizeof(node));
+
+    a->data = 1;
+    b->data = 1;
+    c->data = 1;
+    d->data = 1;
+
+    a->next = b;
+    b->next = c ;
+    c->next = d;
+    d->next = NULL;
+    start = a;
+
+    p = start;
+    while(p != NULL)
+    {
+        printf("%d ",p->data);
+        p = p->next;
+    }
+    printf("\n");
+
+    int n = 4;
+    while(n--)
+    {
+        node *newNode = (node *)malloc(sizeof(node));
+        newNode->data = 0;
+        newNode->next = start;
+        start = newNode;
+
+        p = start;
+        while(p->next->next != NULL)
+        {
+            p = p->next;
+        }
+        free(p->next);
+        p->next = NULL;
+        p = start;
+        while(p != NULL)
+        {
+            printf("%d ",p->data);
+            p = p->next;
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+
+
+
+-------------------------------------------------
+
+
+
+
+/// left rotate
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct node
+{
+    int data;
+    struct node *next;
+} node;
+
+
+int main()
+{
+    node *a,*b,*c,*d,*start,*p;
+    a = (node *)malloc(sizeof(node));
+    b = (node *)malloc(sizeof(node));
+    c = (node *)malloc(sizeof(node));
+    d = (node *)malloc(sizeof(node));
+
+    a->data = 1;
+    b->data = 0;
+    c->data = 0;
+    d->data = 1;
+
+    a->next = b;
+    b->next = c ;
+    c->next = d;
+    d->next = NULL;
+    start = a;
+
+    p = start;
+    while(p != NULL)
+    {
+        printf("%d ",p->data);
+        p = p->next;
+    }
+    printf("\n");
+
+    int n = 4;
+    while(n--)
+    {
+        p = start;
+        start = start->next;
+        int n = p->data;
+        free(p);
+
+        node *newNode = (node *)malloc(sizeof(node));
+        newNode->data = n;
+        newNode->next = NULL;
+
+        p = start;
+        while(p->next != NULL)
+        {
+            p = p->next;
+        }
+        p->next = newNode;
+
+        p = start;
+
+        while(p != NULL)
+        {
+            printf("%d ",p->data);
+            p = p->next;
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+
+
+
+-------------------------------------------------
+
+
+
+
+// Stack
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node
+{
+  int data;
+  struct node *previous;
+};
+
+struct node *top = NULL;
+
+void push(int val)
+{
+  struct node *newNode = malloc(sizeof(struct node));
+  newNode->data = val;
+  newNode->previous = top;
+  top = newNode;
+}
+
+void pop()
+{
+  struct node *p;
+  if(top==NULL)
+  {
+    printf("Stack is empty!\n");
+  }
+  else
+  {
+    printf("Popped element: %d\n", top->data);
+    p = top;
+    top = top->previous;
+    free(p);
+  }
+}
+
+void printStack()
+{
+  struct node *p = top;
+  while(p!=NULL)
+  {
+    printf("%d ", p->data);
+    p=p->previous;
+  }
+  printf("\n");
+}
+int main() 
+{
+  printf("Initial Stack\n");
+  printStack();
+  
+  push(10);
+  printf("After the push, the new stack\n");
+  printStack();
+  
+  push(20);
+  printf("After the push, the new stack\n");
+  printStack();
+  
+  push(30);
+  printf("After the push, the new stack\n");
+  printStack();
+  
+  pop();
+  printf("After the pop, the new stack\n");
+  printStack();
+  
+  pop();
+  printf("After the pop, the new stack\n");
+  printStack();
+  return 0;
+}
+
+
+
+
+-------------------------------------------------
+
+
+
+
+// Queue
+
+#include <stdio.h>
+#include <stdlib.h>
+ 
+typedef struct node {
+    int data;
+    struct node* next;
+} node;
+ 
+node *front = NULL, *rear=NULL;
+
+
+void enqueue(int k)
+{
+    node *temp = (node *)malloc(sizeof(node));
+    temp->data = k;
+    temp->next = NULL;
+ 
+    if (rear == NULL) {
+        front = temp;
+        rear = temp;
+        return;
+    }
+    rear->next = temp;
+    rear = temp;
+}
+
+void dequeue()
+{
+
+    if (front == NULL)
+    {
+      printf("Stack is empty!");
+      return;
+    }
+  
+    node *temp = front;
+    front = front->next;
+ 
+    if (front == NULL)
+    {
+      rear = NULL;
+    }
+    free(temp);
+}
+
+void display()
+{
+  node *p = front;
+  printf("QUEUE ELEMENTS:\n");
+  while(p!=NULL)
+  {
+    printf("%d ", p->data);
+    p = p->next;  
+  }
+  printf("\n");
+}
+
+int main()
+{
+    enqueue(10);
+    display();
+    enqueue(20);
+    display();  
+    dequeue();
+    display();  
+    dequeue();
+    display();
+    enqueue(30);
+    display();  
+    enqueue(40);
+    display();
+    enqueue(50);
+    display();
+    dequeue();
+    display();
+
+    return 0;
+}
